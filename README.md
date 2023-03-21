@@ -1,6 +1,4 @@
-# <div align="center"><img src="/images/icon.png" alt="Edge Profile Manager logo"></div>
-
-# Edge Profile Manager
+# <div align="center"><img src="/images/logo.png" alt="Edge Profile Manager logo" width="25%"></div>
 
 ## Tabla de contenidos
 
