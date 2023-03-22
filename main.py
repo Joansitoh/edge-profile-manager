@@ -79,7 +79,7 @@ class EdgeProfileManager(QMainWindow):
                 row += 1
                 col = 0
 
-        adder_json = {'name': 'Create new profile', 'folder': "New", "avatar": "images/add.png"}
+        adder_json = {'name': 'Create new profile', 'folder': "New", "avatar": UISettings.get_total_path('images/add.png')}
         profiles_layout.addWidget(UIController.create_profile(self, adder_json), row, col)
 
         # Footer

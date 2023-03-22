@@ -64,6 +64,7 @@ class UIController(EdgeProfileManager):
         avatar.setStyleSheet(UISettings.PROFILE_AVATAR_STYLE)
 
         img_path = profile['avatar']
+        print("Path: " + str(img_path))
         if img_path == '':
             project_path = os.path.dirname(os.path.abspath(__file__))
             img_path = os.path.join(project_path, '../images/avatar.png')
@@ -105,8 +106,9 @@ class UIController(EdgeProfileManager):
         pixmap = QPixmap(image_path)
         pixmap = pixmap.scaled(75, 75, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
-        mask_path = 'images/circle_mask.png'
-        mask = QPixmap(mask_path)
+        project_path = os.path.dirname(os.path.abspath(__file__))
+        img_path = os.path.join(project_path, '../images/circle_mask.png')
+        mask = QPixmap(img_path)
 
         mask = mask.scaled(pixmap.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         pixmap.setMask(mask.createMaskFromColor(Qt.transparent))

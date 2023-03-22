@@ -1,5 +1,7 @@
-class UISettings:
+import os
 
+
+class UISettings:
     PROFILE_HEIGHT = 180
     PROFILE_WIDTH = 165
 
@@ -56,3 +58,11 @@ class UISettings:
            border-radius: 50%;
        }
     '''
+
+    @staticmethod
+    def get_total_path(path):
+        project_path = os.path.dirname(os.path.abspath(__file__))
+        # remove 'modules' from path
+        project_path = os.path.dirname(project_path)
+        img_path = os.path.join(project_path, path)
+        return img_path
