@@ -51,9 +51,6 @@ Aquí se muestran algunas capturas de pantalla de Edge Profile Manager en acció
 ![Edge Profile Manager screenshot 1](/images/screenshots/profile_list.png)
 _Lista de perfiles de Microsoft Edge disponibles en el sistema_
 
-![Edge Profile Manager screenshot 2](/images/screenshots/profile_selected.png)
-_Interfaz para acceder a un perfil seleccionado_
-
 ## 🤝 Contribución
 
 Si deseas contribuir a Edge Profile Manager, puedes hacerlo a través de solicitudes de extracción. Asegúrate de seguir las pautas de contribución antes de realizar cambios.

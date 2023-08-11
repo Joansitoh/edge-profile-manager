@@ -6,8 +6,9 @@ import sys
 from PyQt5 import uic
 from time import sleep
 
+from PyQt5.QtWidgets import QLineEdit
+
 from modules import *
-from widgets import *
 
 
 class EdgeProfileManager(QMainWindow):
@@ -28,10 +29,26 @@ class EdgeProfileManager(QMainWindow):
         # FRAME SETTINGS
         ############################################
         self.setMinimumSize(UISettings.UI_WIDTH, UISettings.UI_HEIGHT)
+        # Set the background image scaled to fit the window
+
+        # Set the background image scaled to fit the window
+        pixmap = QPixmap(UISettings.get_total_path('images/background.png'))
+        pixmap = pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(pixmap))
+        self.setPalette(palette)
+
+        self.setWindowTitle('Edge Profile Manager')
+        self.setWindowIcon(QIcon(UISettings.get_total_path('images/icon.png')))
+
+        if EdgeController.get_canary():
+            self.ui.canary_check.setChecked(True)
+
+        self.ui.btn_guest.clicked.connect(lambda _: EdgeController.open_hidden_mode())
+        self.ui.canary_check.stateChanged.connect(lambda _: EdgeController.set_canary())
 
         # PROFILES
         ############################################
-        profile_frame = self.ui.profiles_frame
         profiles_layout = self.ui.profiles_layout
 
         pixmap = QPixmap(UISettings.get_total_path('images/icon.png'))
@@ -49,10 +66,45 @@ class EdgeProfileManager(QMainWindow):
                 row += 1
                 col = 0
 
-        adder_json = {'name': 'Create new profile', 'folder': "New", "avatar": UISettings.get_total_path('images/add.png')}
-        profiles_layout.addWidget(UIController.create_holder(self, adder_json), row, col)
+        adder_json = {'name': 'Add', 'folder': "New", "avatar": UISettings.get_total_path('images/add.png')}
+        holder_frame = UIController.create_holder(self, adder_json)
+        holder_frame.setStyleSheet(UISettings.PROFILE_ADD_HOLDER_STYLE)
+        holder_frame.setStyleSheet(holder_frame.styleSheet() + "border-style: dotted;")
+
+        profiles_layout.addWidget(holder_frame, row, col)
+
+        # Connect the function to the resize event of the window
+        self.resizeEvent = self.onResize
 
         self.show()
+
+    def on_guest_clicked(self):
+        # Open in incognito mode
+        EdgeController.open_hidden_mode()
+
+    def mousePressEvent(self, event):
+        focused_widget = self.focusWidget()
+        if focused_widget:
+            focused_widget.clearFocus()
+
+            if isinstance(focused_widget, QLineEdit):
+                profile_frame = focused_widget.parent()
+                profile_name = profile_frame.objectName().replace(UISettings.PROFILE_FRAME_PREFIX, "")
+                EdgeController.set_edge_profile_name(profile_name, focused_widget.text())
+        super(EdgeProfileManager, self).mousePressEvent(event)
+
+    def setBackgroundImage(self):
+        # Set the background image scaled to fit the window
+        pixmap = QPixmap(UISettings.get_total_path('images/background.png'))
+        pixmap = pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(pixmap))
+        self.setPalette(palette)
+
+    def onResize(self, event):
+        # Call the setBackgroundImage function every time the window is resized
+        self.setBackgroundImage()
+        QMainWindow.resizeEvent(self, event)
 
 
 if __name__ == '__main__':

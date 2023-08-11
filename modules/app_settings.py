@@ -63,6 +63,26 @@ class UISettings:
         }
     '''
 
+    PROFILE_ADD_HOLDER_STYLE = '''
+        QFrame {
+            border: 2px dotted gray;
+            border-radius: 7px;
+        }
+        
+        QFrame:hover {
+            border: 3px dotted gray;
+        }
+        
+        QLabel {
+            font: 57 8pt "Inter Medium";
+            border: 0px;
+        }
+        
+        QLabel:hover {
+            border: 0px;
+        }
+    '''
+
     PROFILE_STYLE = '''
         QFrame {
             border: 0px;
@@ -80,11 +100,15 @@ class UISettings:
 
     PROFILE_TITLE_STYLE = '''
         QLabel, QLineEdit {
-            color: #7d7d7d;
+            color: #c5c5c5;
             font-size: 18px;
             border: 0px;
             border-radius: 0px;
             padding: 5px;
+        }
+        
+        QLineEdit:focus {
+            border-bottom: 1px solid gray;
         }
     '''
 

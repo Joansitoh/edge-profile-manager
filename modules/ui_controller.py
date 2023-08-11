@@ -27,7 +27,6 @@ class UIController(EdgeProfileManager):
         # SETTINGS FRAME
         ############################################
         holder_layout.addWidget(UIController.create_profile(self, profile), 0, 0, 1, 1)
-        holder_layout.addWidget(UIController.create_settings_frame(self, profile), 1, 0, 1, 1)
 
         return holder_frame
 
@@ -48,12 +47,22 @@ class UIController(EdgeProfileManager):
 
         # EDGE PROFILE NAME
         ##############################################################
-        title = QLabel(profile_frame)
+        title = QLineEdit(profile_frame)
 
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 
         title.setSizePolicy(sizePolicy)
         title.setAlignment(Qt.AlignCenter)
+
+        # On click out of the title, save the new name and unfocus
+        title_text = profile['name']
+        new_text = title.text()
+
+        #print("Title text: " + title_text)
+        #print("New text: " + new_text)
+        title.editingFinished.connect(lambda: EdgeController.set_edge_profile_name(profile['folder'], title.text()))
+
+        # On click on any part of the window unfocus the title
 
         title.setStyleSheet(UISettings.PROFILE_TITLE_STYLE)
 
@@ -76,8 +85,11 @@ class UIController(EdgeProfileManager):
         img_path = profile['avatar']
         #print("Path: " + str(img_path))
         if img_path == '':
+            print("Empty path")
             project_path = os.path.dirname(os.path.abspath(__file__))
             img_path = os.path.join(project_path, '../images/avatar.png')
+        else:
+            print("Path: " + str(img_path))
 
         pixmap = UISettings.round_image(img_path)
         avatar.setPixmap(pixmap)
@@ -88,8 +100,12 @@ class UIController(EdgeProfileManager):
         ##############################################
 
         # Add settings button on bottom right corner
-        UIController.add_settings_btn(self, profile_frame, lambda x: AnimationManager.toggle_profile(self, profile))
+        #UIController.add_settings_btn(self, profile_frame, lambda x: AnimationManager.toggle_profile(self, profile))
         return profile_frame
+
+    def mousePressEvent(self, *args, **kwargs):
+        super().mousePressEvent(*args, **kwargs)
+        print("Mouse pressed")
 
     def create_settings_frame(self, profile):
         # SETTINGS FRAME
@@ -161,7 +177,6 @@ class UIController(EdgeProfileManager):
         profile['avatar'] = avatar
 
         EdgeController.set_edge_profile_name(profile['folder'], name)
-
 
 class ProfileDialog(QDialog):
     def __init__(self, profile, parent=None):
