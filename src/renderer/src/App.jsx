@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './assets/main.css'
 
-import circleUser from './assets/img/circle-user-solid.svg'
 import logo from './assets/img/logo.png'
 import background from './assets/img/background.png'
 
