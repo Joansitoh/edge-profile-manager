@@ -5,7 +5,7 @@
     <h1 align="center">Edge Profile Manager</h1>
 </p>
 <p align="center">
-    <em><code>Manage Edge Profiles</code></em>
+    <em><code>Manage your Microsoft Edge profiles easier.</code></em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/github/license/Joansitoh/edge-profile-manager?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
