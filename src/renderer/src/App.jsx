@@ -35,7 +35,6 @@ function App() {
   }
 
   const handleToggleCloseOnLaunch = () => {
-    console.log('toggle close on launch')
     window.electron.ipcRenderer.send('toggle-close-on-select')
   }
 
