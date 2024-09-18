@@ -42,7 +42,6 @@
   - [ Usage](#-usage)
 - [ Contributing](#-contributing)
 - [ License](#-license)
-- [ Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -56,7 +55,8 @@
 
 ### Prerequisites
 
-**JavaScript**: `version x.y.z`
+**Node**: `version 22.X`
+**Electron**: `version x`
 
 ### Installation
 
